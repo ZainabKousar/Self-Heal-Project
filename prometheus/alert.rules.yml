@@ -1,0 +1,11 @@
+groups:
+- name: nginx_alerts
+  rules:
+  - alert: NginxDown
+    expr: probe_success == 0
+    for: 10s
+    labels:
+      severity: critical
+    annotations:
+      description: "Nginx is not responding to HTTP probe"
+

@@ -1,0 +1,7 @@
+---
+- name: Restart Nginx container
+  hosts: localhost
+  tasks:
+    - name: Restart the Nginx Docker container
+      command: docker restart nginx
+

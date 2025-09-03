@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+
+  blackbox:
+    image: prom/blackbox-exporter
+    container_name: blackbox
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox.yml:/etc/blackbox/blackbox.yml
+    command:
+      - '--config.file=/etc/blackbox/blackbox.yml'
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - blackbox
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+
+  webhook:
+    build: ./webhook
+    container_name: webhook
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./webhook:/app
+      - ./ansible:/ansible
+      -  /var/run/docker.sock:/var/run/docker.sock
+
