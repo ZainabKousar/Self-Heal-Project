@@ -22,12 +22,12 @@ Tech Stack
 Here’s what makes this magic happen:
 
 Tool	Purpose
-Docker -	Run all services in isolated containers
-Nginx -	The service we are monitoring
-Prometheus -	Monitors Nginx and other targets
-Alertmanager -	Receives alerts from Prometheus and forwards them
-Webhook (Flask) -	Receives alerts and triggers automation
-Ansible -	Restarts Nginx automatically when an alert is received
+Docker -	Run all services in isolated containers,
+Nginx -	The service we are monitoring,
+Prometheus -	Monitors Nginx and other targets,
+Alertmanager -	Receives alerts from Prometheus and forwards them,
+Webhook (Flask) -	Receives alerts and triggers automation,
+Ansible -	Restarts Nginx automatically when an alert is received.
 How It Works---
 
 Prometheus keeps an eye on Nginx every few seconds.
@@ -44,7 +44,6 @@ Setup & Run
 
 Clone this repo:
 
-git clone https://github.com/<your-username>/self-heal-docker.git
 cd self-heal-docker
 
 
